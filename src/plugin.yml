@@ -1,0 +1,10 @@
+name: Plgn # the plugins name as it should appear in the plugin list /pl
+version: 0.1 # the plugin's version
+author: MyName
+main: plugin.Main
+api-version: # the version of the API you want to use, required starting with 1.13
+commands:
+  gamer:
+    description: CoolCommand
+    usage: /<command>
+    permission: yourplugin.yourcommandpermission
