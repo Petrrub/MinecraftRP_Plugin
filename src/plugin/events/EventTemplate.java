@@ -1,15 +1,22 @@
 package plugin.events;
 
 import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionEffectTypeWrapper;
@@ -19,6 +26,8 @@ public class EventTemplate implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.setJoinMessage("Welcome, " + event.getPlayer().getName() + "!");
     }
+
+    //Inventory openInv = null;
 
     @EventHandler
     public void onPlayerRClick(PlayerInteractEntityEvent event) throws InterruptedException {
@@ -33,11 +42,13 @@ public class EventTemplate implements Listener {
                         ((Player) event.getRightClicked()).sendMessage("Inventory Checked by " + event.getPlayer().getName());
                         event.getPlayer().openInventory(((Player) event.getRightClicked()).getInventory());
 
+                        //event.getPlayer().in
                         //wait(1000);
                         //event.getPlayer().closeInventory();
                     }
                     else
                     {
+
                         event.getPlayer().addPassenger(event.getRightClicked());
                     }
 
@@ -45,6 +56,45 @@ public class EventTemplate implements Listener {
         }
 
     }
+
+
+    /*
+    * Не дает забирать ключи из инвентаря
+    *
+    *
+    * */
+    @EventHandler
+    public void onInventoryView(InventoryClickEvent event)
+    {
+        if(event.getCurrentItem() != null) {
+            Inventory inv = event.getInventory();
+
+            event.getWhoClicked().sendMessage("You clicked1 " + event.getCurrentItem());
+
+            event.getWhoClicked().sendMessage("You clicked " + event.getCurrentItem().getType());
+            event.getWhoClicked().sendMessage("getHolder " + event.getClickedInventory().getHolder().toString());
+            //if (event.getWhoClicked().getInventory() != inv && !inv.getItem(17).equals(1)) return;
+            //ItemStack bricks = new ItemStack(Material.BRICK);
+            //bricks.setAmount(event.getCurrentItem().getAmount());
+
+            //if ((event.getWhoClicked().getInventory().getHolder() != event.getClickedInventory().getHolder() && event.getClickedInventory().getHolder().toString().contains("CraftPlayer"))  && event.getCurrentItem().toString().contains("LOCKS_KEY")) {
+            if ( event.getWhoClicked().getInventory() != event.getClickedInventory() && event.getClickedInventory().getHolder().toString().contains("Player") && event.getCurrentItem().toString().contains("LOCKS_KEY")) {
+
+                //event.setCursor(null);
+                Player player = (Player) event.getView().getPlayer();
+                event.getWhoClicked().getInventory().remove(event.getCurrentItem());
+                player.updateInventory();
+
+                event.setCancelled(true);
+
+                //event.getView().getPlayer();
+                //event.getWhoClicked().openInventory(event.getWhoClicked().getInventory());
+
+            }
+            //
+        }
+    }
+
 
     @EventHandler
     public void onPlayerSneaking(PlayerToggleSneakEvent event)
