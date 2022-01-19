@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="SoigotPlugin:jar">
-    <output-path>D:/</output-path>
+    <output-path>$USER_HOME$/Desktop/testplugin/plugins</output-path>
     <root id="archive" name="SoigotPlugin.jar">
       <element id="module-output" name="SoigotPlugin" />
       <element id="extracted-dir" path="$USER_HOME$/Desktop/spigot-api-1.16.5-R0.1-20210604.221538-95-shaded.jar" path-in-jar="/" />

@@ -49,7 +49,7 @@ public class EventTemplate implements Listener {
     @EventHandler
     public void onPlayerSneaking(PlayerToggleSneakEvent event)
     {
-        if(event.getPlayer().getPassengers() != null)
+        if(event.getPlayer().getPassengers().isEmpty() == false)
         {
             event.getPlayer().removePassenger(event.getPlayer().getPassengers().get(0));
         }
