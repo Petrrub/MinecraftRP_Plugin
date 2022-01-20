@@ -13,7 +13,7 @@ public class Main extends JavaPlugin{
         //this.getCommand("kit").setExecutor(new CommandKit());
         this.getCommand("gamer").setExecutor(new CommandKit());
         getServer().getPluginManager().registerEvents(new EventTemplate(), this);
-        getLogger().info(ChatColor.RED + "Plgn is now enabled!");
+        getLogger().info(ChatColor.GOLD + "MinecraftRP is now enabled!");
     }
 
 
